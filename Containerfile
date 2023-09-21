@@ -8,7 +8,8 @@ EXPOSE 8080
 RUN sed -i "s/Listen 80/Listen 8080/g" /etc/httpd/conf/httpd.conf && \
     sed -i "s/#ServerName www.example.com:80/ServerName 0.0.0.0:8080/g" /etc/httpd/conf/httpd.conf && \
     chgrp -R 0 /var/log/httpd /var/run/httpd && \
-    chmod -R g=u /var/log/httpd /var/run/httpd
+    chmod -R g=u /var/log/httpd /var/run/httpd && \
+    echo "This is a call from parent container!" > /var/www/html/index.html
 
 ONBUILD COPY src/ /var/www/html/
 # Run as a non-privileged user
